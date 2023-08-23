@@ -2,17 +2,17 @@
 countries participating in olympics? */
 
 WITH t1 AS
- (SELECT games, nr.region AS country
+ (SELECT games, nr.region AS country_count
  FROM olympics_history oh
  JOIN olympics_history_noc_regions nr 
  ON nr.noc=oh.noc),
  
 t2 AS
- (SELECT games, COUNT(DISTINCT country) AS country
+ (SELECT games, COUNT(DISTINCT country) AS country_count
  FROM t1
  GROUP BY 1)
  
- SELECT games, country
+ SELECT games, country_count
  FROM t2
  WHERE country = (SELECT MAX(country) FROM t2) 
  OR country = (SELECT MIN (country) FROM t2)
